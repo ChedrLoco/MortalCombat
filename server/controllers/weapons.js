@@ -8,6 +8,11 @@ router.get('/', (req, res) => {
   Weapon.find((err, weapons) => res.send({ weapons }));
 });
 
+router.get('/:id/get', (req, res) => {
+  const id = req.params.id;
+  Weapon.findById(id, (err, weapon) => res.send({ weapon }));
+});
+
 router.post('/', (req, res) => {
   const weapon = new Weapon(req.body);
   console.log('new weapon', weapon);

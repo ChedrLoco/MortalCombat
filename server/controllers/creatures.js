@@ -20,3 +20,19 @@ router.post('/', (req, res) => {
     res.send();
   });
 });
+
+router.put('/:id/update', (req, res) => {
+  const win = req.body.win * 1;
+  const lost = req.body.lost * 1;
+
+  const id = req.params.id;
+  Creature.findById(id, (err, creature) => {
+    console.log('found creature', creature);
+    creature.wins += win;
+    creature.losses += lost;
+    console.log('after update', creature);
+    creature.save(() => {
+      res.send();
+    });
+  });
+});

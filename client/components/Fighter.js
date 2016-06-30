@@ -21,29 +21,51 @@ class Fighter extends React.Component {
       });
   }
 
-  // purchase(event) {
-  //   if (event.currentTarget.getAttribute('class') === 'taken') return;
-  //   const seatid = event.currentTarget.getAttribute('data-id');
-  //   const sectid = this.props.section._id;
-  //   const body = JSON.stringify({ sectid });
-  //
-  //   fetch(`//localhost:3333/seats/${seatid}/purchase`, { method: 'put', body, headers: { 'Content-Type': 'application/json' } })
-  //   .then(r => r.json())
-  //   .then((r) => {
-  //     const seat = this.state.seats.find(s => s._id === r.seat._id);
-  //     seat.isPurchased = true;
-  //     this.setState({ total: r.section.total, seats: this.state.seats });
-  //   });
-  // }
-
   render() {
+    const creature = this.props.creature;
+    const weapon = this.props.weapon;
+    let cImg = '';
+    let cName = '';
+    let wImg = '';
+    let wName = '';
+    if (creature) {
+      cImg = creature.image;
+      cName = creature.name;
+    }
+    if (weapon) {
+      wImg = weapon.image;
+      wName = weapon.name;
+    }
+
     return (
       <div>
-          <h4>Pick a Fighter</h4>
-          <select ref='fighter' data-id={this.props.creature} onChange={this.props.onCreatureChange}>
-            <option>Select a fighter</option>
-            {this.state.creatures.map(c => <option key={c._id} value={c._id}>{c.name}</option>)}
-          </select>
+        <h4>{cName} {wName}</h4>
+        <div className='row'>
+          <div className='col-xs-5'>
+            <select ref='fighter' data-id={this.props.fighterId} onChange={this.props.onCreatureChange}>
+              <option>Select a fighter</option>
+              {this.state.creatures.map(c => <option key={c._id} value={c._id}>{c.name}</option>)}
+            </select>
+          </div>
+          <div className='col-xs-5'>
+            <select ref='fighter' data-id={this.props.fighterId} onChange={this.props.onWeaponChange}>
+              <option>Select a weapon</option>
+              {this.state.weapons.map(w => <option key={w._id} value={w._id}>{w.name}</option>)}
+            </select>
+          </div>
+          <div className='col-xs-2'>
+          </div>
+        </div>
+        <div className='row'>
+          <div className='col-xs-5'>
+            <img src={cImg} className='display-image' />
+          </div>
+          <div className='col-xs-5'>
+            <img src={wImg} className='display-image' />
+          </div>
+          <div className='col-xs-2'>
+          </div>
+        </div>
 
       </div>
     );
